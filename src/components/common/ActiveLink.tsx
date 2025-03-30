@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { TActiveLinkProps } from '../types';
+import { TActiveLinkProps } from '../../types';
 
 const ActiveLink = ({ url, children }: TActiveLinkProps) => {
   const pathName = usePathname();

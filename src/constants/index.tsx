@@ -1,5 +1,5 @@
 import { IconExplore, IconPlay } from '@/components/icons';
-import { TMenuItem } from '@/components/types';
+import { TMenuItem } from '@/types';
 
 export const menuItem: TMenuItem[] = [
   {
