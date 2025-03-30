@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html suppressHydrationWarning lang="en">
       <body className={`${manrope.className}`}>
         <div className="wrapper grid grid-cols-[300px,minmax(0,1fr)] h-screen">
           <Sidebar />
