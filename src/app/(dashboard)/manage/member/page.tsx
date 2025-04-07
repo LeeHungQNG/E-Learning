@@ -1,4 +1,4 @@
 const page = () => {
-  return <div>page</div>;
+  return <div>Manage member</div>;
 };
 export default page;
