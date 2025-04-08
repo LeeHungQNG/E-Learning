@@ -1,4 +1,4 @@
-import User, { IUser } from '@/database/user.modal';
+import User from '@/database/user.modal';
 import { connectToDatabase } from '../mongoose';
 import { TCreateUser } from '@/types';
 
