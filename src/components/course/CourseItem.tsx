@@ -19,7 +19,7 @@ const CourseItem = () => {
   ];
 
   return (
-    <div className="bg-white border border-gray-200 p-4  rounded-2xl">
+    <div className="bg-white dark:bg-grayDarker border border-gray-200 dark:border-opacity-10 p-4  rounded-2xl">
       <Link href={'#'} className="block h-[180px] relative">
         <Image
           src={
@@ -37,7 +37,7 @@ const CourseItem = () => {
       <div className="pt-4">
         <h3 className="font-bold text-lg mb-3">Khóa học ReactJS từ cơ bản đến năng cao qua dự án thực tế</h3>
 
-        <div className="flex items-center gap-3 mb-5 text-xs text-gray-500">
+        <div className="flex items-center gap-3 mb-5 text-xs text-gray-500 dark:text-grayDark">
           {courseInfo.map((item, index) => {
             return (
               <div key={index} className="flex items-center gap-1">
