@@ -5,7 +5,6 @@ import { ActiveLink } from '../common';
 import { useAuth, UserButton } from '@clerk/nextjs';
 import { ModeToggle } from '../common/ModeToggle';
 import Link from 'next/link';
-import { IconMember } from '../icons';
 
 const Sidebar = () => {
   const { userId } = useAuth();
