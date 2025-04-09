@@ -8,6 +8,9 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useState } from 'react';
+import { createCourse } from '@/lib/actions/course.actions';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
   title: z.string().min(10, 'Tên khóa học phải nhất 10 ký tự'),
@@ -16,7 +19,7 @@ const formSchema = z.object({
 
 function CourseAddNew() {
   const [isSubmitting, setisSubmitting] = useState(false);
-
+  const router = useRouter();
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -27,18 +30,25 @@ function CourseAddNew() {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     setisSubmitting(true);
     try {
       const data = {
         title: values.title,
         slug: values.slug || slugify(values.title, { lower: true, locale: 'vi' }),
       };
-      console.log(data);
+      const res = await createCourse(data);
+      if (res?.success) {
+        toast.success('Tạo khóa học thành công');
+      }
+      if (res?.data) {
+        router.push(`/manage/course/update?slug=${res.data.slug}`);
+      }
     } catch (error) {
       console.log('🚀 ~ onSubmit ~ error:', error);
     } finally {
       setisSubmitting(false);
+      form.reset();
     }
     console.log(values);
   }

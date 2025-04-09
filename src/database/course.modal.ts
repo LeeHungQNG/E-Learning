@@ -33,11 +33,11 @@ export interface ICourse extends Document {
 const courseSchema = new Schema<ICourse>({
   title: { type: String, required: true },
   slug: { type: String, required: true },
-  image: { type: String },
-  intro_url: { type: String },
-  desc: { type: String },
-  price: { type: Number },
-  sale_price: { type: Number },
+  image: { type: String, default: '' },
+  intro_url: { type: String, default: '' },
+  desc: { type: String, default: '' },
+  price: { type: Number, default: 0 },
+  sale_price: { type: Number, default: 0 },
   status: {
     type: String,
     enum: Object.values(ECourseStatus),
