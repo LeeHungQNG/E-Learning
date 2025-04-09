@@ -11,13 +11,14 @@ import { useState } from 'react';
 import { createCourse } from '@/lib/actions/course.actions';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import { IUser } from '@/database/user.modal';
 
 const formSchema = z.object({
   title: z.string().min(10, 'Tên khóa học phải nhất 10 ký tự'),
   slug: z.string().optional(),
 });
 
-function CourseAddNew() {
+function CourseAddNew({ user }: { user: IUser }) {
   const [isSubmitting, setisSubmitting] = useState(false);
   const router = useRouter();
   // 1. Define your form.
@@ -36,11 +37,14 @@ function CourseAddNew() {
       const data = {
         title: values.title,
         slug: values.slug || slugify(values.title, { lower: true, locale: 'vi' }),
+        author: user?.id,
       };
       const res = await createCourse(data);
-      if (res?.success) {
-        toast.success('Tạo khóa học thành công');
+      if (!res?.success) {
+        toast.error(res?.message);
+        return;
       }
+      toast.success('Tạo khóa học thành công');
       if (res?.data) {
         router.push(`/manage/course/update?slug=${res.data.slug}`);
       }
