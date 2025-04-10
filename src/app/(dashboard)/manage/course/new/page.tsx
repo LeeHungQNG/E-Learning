@@ -4,7 +4,8 @@ import { getUserInfo } from '@/lib/actions/user.actions';
 import { auth } from '@clerk/nextjs/server';
 
 const page = async () => {
-  const { userId } = auth();
+  const { userId } = await auth();
+  console.log('🚀 ~ page ~ userId:', userId);
   if (!userId) return null;
   const mongoUser = await getUserInfo({ userId });
   if (!mongoUser) return null;
