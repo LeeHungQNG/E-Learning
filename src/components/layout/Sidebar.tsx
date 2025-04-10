@@ -9,7 +9,7 @@ import Link from 'next/link';
 const Sidebar = () => {
   const { userId } = useAuth();
   return (
-    <div className="hidden lg:flex flex-col p-5 border-r border-r-gray-200 dark:border-opacity-10 bg-white dark:bg-grayDarker ">
+    <div className="hidden lg:flex flex-col p-5 border-r border-r-gray-200 dark:border-opacity-10 bg-white dark:bg-grayDarker fixed top-0 left-0 bottom-0 w-[300px]">
       <a href="/" className="font-bold text-3xl inline-block mb-5">
         <span className="text-primary">U</span>cademy
       </a>

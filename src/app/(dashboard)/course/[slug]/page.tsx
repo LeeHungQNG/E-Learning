@@ -1,11 +1,15 @@
+import NotFoundPage from '@/app/not-found';
 import { IconClock, IconComment, IconMember, IconPlay } from '@/components/icons';
 import { Button } from '@/components/ui/button';
+import { courseLevelTitle } from '@/constants';
 import { getCourseBySlug } from '@/lib/actions/course.actions';
+import { ECourseStatus } from '@/types/enums';
 import Image from 'next/image';
 
 const page = async ({ params }: { params: { slug: string } }) => {
   const data = await getCourseBySlug({ slug: params.slug });
   if (!data) return null;
+  if (data.status !== ECourseStatus.APPROVED) return <NotFoundPage />;
   const videoId = data.intro_url?.split('v=')[1];
   return (
     <div className="grid lg:grid-cols-[2fr,1fr] gap-10 min-h-screen">
@@ -24,12 +28,7 @@ const page = async ({ params }: { params: { slug: string } }) => {
               ></iframe>
             </>
           ) : (
-            <Image
-              src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="course img"
-              fill
-              className="w-full h-full object-cover rounded-lg"
-            />
+            <Image src={data.image} alt="course img" fill className="w-full h-full object-cover rounded-lg" />
           )}
         </div>
         <h1 className="font-bold text-3xl mb-5">{data?.title}</h1>
@@ -41,7 +40,7 @@ const page = async ({ params }: { params: { slug: string } }) => {
         <BoxSection title="Thông tin">
           <div className="grid grid-cols-4 gap-5 mb-10 ">
             <BoxInfo title="Bài học">100</BoxInfo>
-            <BoxInfo title="Trình độ">beginer</BoxInfo>
+            <BoxInfo title="Trình độ">{courseLevelTitle[data.level]}</BoxInfo>
             <BoxInfo title="Lượt xem">{data.views}</BoxInfo>
             <BoxInfo title="Thời lượng">10h30ph</BoxInfo>
           </div>
